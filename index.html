@@ -6,7 +6,7 @@
     <title>Calendario Interactivo 2025</title>
     <style>
         body {
-            background: url('lp_image.HEIC') no-repeat center center/cover;
+            background: url('tu-imagen.jpg') no-repeat center center/cover;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -20,6 +20,8 @@
             background: rgba(0, 0, 0, 0.6);
             padding: 20px;
             border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
         }
         .mes {
             margin-bottom: 20px;
@@ -29,17 +31,20 @@
             grid-template-columns: repeat(7, 1fr);
             gap: 5px;
             padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
         }
         .dia {
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
             border-radius: 5px;
             color: black;
             text-align: center;
+            font-weight: bold;
             cursor: pointer;
+            background: #f0f0f0;
         }
         .dia.disabled {
-            background: rgba(150, 150, 150, 0.5);
+            background: rgba(200, 200, 200, 0.5);
             cursor: not-allowed;
         }
         .frase-container {
@@ -88,6 +93,25 @@
                 mesDiv.innerHTML = `<h2>${new Date(2025, mes).toLocaleString('es-ES', { month: 'long' }).toUpperCase()}</h2>`;
                 let calendario = document.createElement("div");
                 calendario.classList.add("calendario");
+                
+                let diasSemana = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
+                diasSemana.forEach(dia => {
+                    let header = document.createElement("div");
+                    header.textContent = dia;
+                    header.classList.add("dia");
+                    header.style.background = "#dcdcdc";
+                    calendario.appendChild(header);
+                });
+                
+                let primerDia = new Date(2025, mes, 1).getDay();
+                let offset = primerDia === 0 ? 6 : primerDia - 1;
+                for (let i = 0; i < offset; i++) {
+                    let emptyCell = document.createElement("div");
+                    emptyCell.classList.add("dia");
+                    emptyCell.style.background = "transparent";
+                    emptyCell.style.cursor = "default";
+                    calendario.appendChild(emptyCell);
+                }
                 
                 let diasEnMes = new Date(2025, mes + 1, 0).getDate();
                 for (let dia = 1; dia <= diasEnMes; dia++) {
