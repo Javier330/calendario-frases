@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario Interactivo 2025</title>
+    <style>
+        body {
+            background: url('tu-imagen.jpg') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        .container {
+            text-align: center;
+        }
+        .calendario {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+        }
+        .dia {
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .dia.disabled {
+            background: rgba(100, 100, 100, 0.5);
+            cursor: not-allowed;
+        }
+        .frase-container {
+            display: none;
+        }
+        .btn {
+            margin-top: 20px;
+            padding: 10px;
+            background: #ff9800;
+            border: none;
+            cursor: pointer;
+            color: white;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="calendario" class="calendario"></div>
+        <div id="frase-container" class="frase-container">
+            <h2 id="frase-texto"></h2>
+            <button class="btn" onclick="volverAlCalendario()">Volver</button>
+        </div>
+    </div>
+    
+    <script>
+        const frases = {
+            "2025-01-01": "Feliz Año Nuevo, que este año esté lleno de amor y felicidad!",
+            "2025-01-02": "Cada día contigo es un regalo.",
+            // Agrega más frases aquí
+        };
+
+        const calendario = document.getElementById("calendario");
+        const fraseContainer = document.getElementById("frase-container");
+        const fraseTexto = document.getElementById("frase-texto");
+        const hoy = new Date();
+        
+        function generarCalendario() {
+            for (let mes = 0; mes < 12; mes++) {
+                let diasEnMes = new Date(2025, mes + 1, 0).getDate();
+                for (let dia = 1; dia <= diasEnMes; dia++) {
+                    let fechaStr = `2025-${(mes + 1).toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
+                    let fecha = new Date(fechaStr);
+                    let boton = document.createElement("div");
+                    boton.textContent = dia;
+                    boton.classList.add("dia");
+                    if (fecha > hoy) {
+                        boton.classList.add("disabled");
+                    } else {
+                        boton.onclick = () => mostrarFrase(fechaStr);
+                    }
+                    calendario.appendChild(boton);
+                }
+            }
+        }
+
+        function mostrarFrase(fecha) {
+            if (!frases[fecha]) return;
+            calendario.style.display = "none";
+            fraseContainer.style.display = "block";
+            fraseTexto.textContent = frases[fecha];
+        }
+
+        function volverAlCalendario() {
+            calendario.style.display = "grid";
+            fraseContainer.style.display = "none";
+        }
+
+        generarCalendario();
+    </script>
+</body>
+</html>
