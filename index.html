@@ -6,7 +6,7 @@
     <title>Calendario Interactivo 2025</title>
     <style>
         body {
-            background: url('ip_image.HEIC') no-repeat center center/cover;
+            background: url('lp_image.HEIC') no-repeat center center/cover;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -17,24 +17,36 @@
         }
         .container {
             text-align: center;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .mes {
+            margin-bottom: 20px;
         }
         .calendario {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 10px;
+            gap: 5px;
+            padding: 10px;
         }
         .dia {
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.8);
             border-radius: 5px;
+            color: black;
+            text-align: center;
             cursor: pointer;
         }
         .dia.disabled {
-            background: rgba(100, 100, 100, 0.5);
+            background: rgba(150, 150, 150, 0.5);
             cursor: not-allowed;
         }
         .frase-container {
             display: none;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
         }
         .btn {
             margin-top: 20px;
@@ -49,7 +61,8 @@
 </head>
 <body>
     <div class="container">
-        <div id="calendario" class="calendario"></div>
+        <h1>Calendario 2025</h1>
+        <div id="calendario-container"></div>
         <div id="frase-container" class="frase-container">
             <h2 id="frase-texto"></h2>
             <button class="btn" onclick="volverAlCalendario()">Volver</button>
@@ -63,13 +76,19 @@
             // Agrega más frases aquí
         };
 
-        const calendario = document.getElementById("calendario");
+        const calendarioContainer = document.getElementById("calendario-container");
         const fraseContainer = document.getElementById("frase-container");
         const fraseTexto = document.getElementById("frase-texto");
         const hoy = new Date();
         
         function generarCalendario() {
             for (let mes = 0; mes < 12; mes++) {
+                let mesDiv = document.createElement("div");
+                mesDiv.classList.add("mes");
+                mesDiv.innerHTML = `<h2>${new Date(2025, mes).toLocaleString('es-ES', { month: 'long' }).toUpperCase()}</h2>`;
+                let calendario = document.createElement("div");
+                calendario.classList.add("calendario");
+                
                 let diasEnMes = new Date(2025, mes + 1, 0).getDate();
                 for (let dia = 1; dia <= diasEnMes; dia++) {
                     let fechaStr = `2025-${(mes + 1).toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
@@ -84,18 +103,21 @@
                     }
                     calendario.appendChild(boton);
                 }
+                
+                mesDiv.appendChild(calendario);
+                calendarioContainer.appendChild(mesDiv);
             }
         }
 
         function mostrarFrase(fecha) {
             if (!frases[fecha]) return;
-            calendario.style.display = "none";
+            calendarioContainer.style.display = "none";
             fraseContainer.style.display = "block";
             fraseTexto.textContent = frases[fecha];
         }
 
         function volverAlCalendario() {
-            calendario.style.display = "grid";
+            calendarioContainer.style.display = "block";
             fraseContainer.style.display = "none";
         }
 
