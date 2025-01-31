@@ -60,15 +60,16 @@
             background-color: #ff9800;
         }
         .frase-container {
-            display: none;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 1s ease-in-out, visibility 0s 1s; /* Ajuste para visibilidad con opacidad */
             padding: 20px;
             border-radius: 10px;
-            opacity: 0;
-            transition: opacity 5s ease-in-out; /* Aumento del tiempo de la animación */
         }
         .frase-container.visible {
-            display: block;
+            visibility: visible;
             opacity: 1;
+            transition: opacity 1s ease-in-out, visibility 0s; /* Sin demora en visibility */
         }
         .btn {
             margin-top: 20px;
@@ -166,3 +167,4 @@
     </script>
 </body>
 </html>
+
