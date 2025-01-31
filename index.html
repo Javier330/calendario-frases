@@ -6,14 +6,16 @@
     <title>Calendario Interactivo 2025</title>
     <style>
         body {
-            background: url('lp_image.png') no-repeat center center/cover;
+            background: url('mi-imagen.jpg') no-repeat center center fixed;
+            background-size: cover;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
             color: white;
+            overflow: auto;
         }
         .container {
             text-align: center;
@@ -22,6 +24,7 @@
             border-radius: 10px;
             width: 95%;
             max-width: 1200px;
+            overflow: auto;
         }
         .calendario-grid {
             display: grid;
@@ -84,8 +87,8 @@
     
     <script>
         const frases = {
-            "2025-05-01": "Feliz Año Nuevo, que este año esté lleno de amor y felicidad!",
-            "2025-05-02": "Cada día contigo es un regalo.",
+            "2025-01-01": "Feliz Año Nuevo, que este año esté lleno de amor y felicidad!",
+            "2025-01-02": "Cada día contigo es un regalo.",
             // Agrega más frases aquí
         };
 
