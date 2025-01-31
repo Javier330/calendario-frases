@@ -64,7 +64,7 @@
             padding: 20px;
             border-radius: 10px;
             opacity: 0;
-            transition: opacity 0.5s ease-in-out;
+            transition: opacity 0.5s ease-in-out; /* Animación de desvanecimiento */
         }
         .frase-container.visible {
             display: block;
@@ -153,16 +153,17 @@
         function mostrarFrase(fecha) {
             if (!frases[fecha]) return;
             calendarioGrid.style.display = "none";
-            fraseContainer.classList.add("visible");
+            fraseContainer.classList.add("visible");  // Hacer visible con animación
             fraseTexto.textContent = frases[fecha];
         }
 
         function volverAlCalendario() {
             calendarioGrid.style.display = "grid";
-            fraseContainer.classList.remove("visible");
+            fraseContainer.classList.remove("visible");  // Quitar visibilidad con animación
         }
 
         generarCalendario();
     </script>
 </body>
 </html>
+
