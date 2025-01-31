@@ -6,7 +6,105 @@
     <title>Calendario Interactivo 2025</title>
     <style>
         body {
-            background: url('lp_image.png')}`;
+            background: url('lp_image.png') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+            overflow: auto;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            width: 95%;
+            max-width: 1200px;
+            overflow: auto;
+        }
+        .calendario-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(4, auto);
+            gap: 20px;
+            padding: 10px;
+        }
+        .mes {
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            color: black;
+            background: rgba(255, 255, 255, 0.8);
+        }
+        .calendario {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            padding: 10px;
+        }
+        .dia {
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.9);
+        }
+        .dia.disabled {
+            background: rgba(200, 200, 200, 0.5);
+            cursor: not-allowed;
+        }
+        .frase-container {
+            display: none;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .btn {
+            margin-top: 20px;
+            padding: 10px;
+            background: #ff9800;
+            border: none;
+            cursor: pointer;
+            color: white;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calendario 2025</h1>
+        <div id="calendario-grid" class="calendario-grid"></div>
+        <div id="frase-container" class="frase-container">
+            <h2 id="frase-texto"></h2>
+            <button class="btn" onclick="volverAlCalendario()">Volver</button>
+        </div>
+    </div>
+    
+    <script>
+        const frases = {
+            "2025-01-01": "Feliz Año Nuevo, que este año esté lleno de amor y felicidad!",
+            "2025-01-02": "Cada día contigo es un regalo.",
+            // Agrega más frases aquí
+        };
+
+        const calendarioGrid = document.getElementById("calendario-grid");
+        const fraseContainer = document.getElementById("frase-container");
+        const fraseTexto = document.getElementById("frase-texto");
+        const hoy = new Date();
+        
+        function generarCalendario() {
+            for (let mes = 0; mes < 12; mes++) {
+                let mesDiv = document.createElement("div");
+                mesDiv.classList.add("mes");
+                mesDiv.innerHTML = `<h2>${new Date(2025, mes).toLocaleString('es-ES', { month: 'long' }).toUpperCase()}</h2>`;
+                let calendario = document.createElement("div");
+                calendario.classList.add("calendario");
+                
+                let diasEnMes = new Date(2025, mes + 1, 0).getDate();
+                for (let dia = 1; dia <= diasEnMes; dia++) {
+                    let fechaStr = `2025-${(mes + 1).toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
                     let fecha = new Date(fechaStr);
                     let boton = document.createElement("div");
                     boton.textContent = dia;
@@ -40,4 +138,3 @@
     </script>
 </body>
 </html>
-
